@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPS 525 Project</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        .cointainer {
+            height: 100vh;
+        }
+
+        .height {
+            margin: 0px;
+            padding: 0px;
+            float: left;
+            width: 90%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            left: 50%;
+        }
+
+        .progress-container {
+            margin-bottom: 7px;
+            background-color: #474747;
+            padding: 7px;
+            border-radius: 7px;
+        }
+
+        .progress-bar {
+            height: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #4caf50;
+            border-radius: 7px;
+        }
+
+        .emotion-text {
+            font-size: 18px;
+            color: whitesmoke;
+        }
+
+        input {
+            color: whitesmoke !important;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $('select').formSelect();
+        });
+    </script>
+</head>
+
+<body style="height: 100vh; background-color: #171b27;">
+    <div class="container">
+        <div class="row">
+            <div class="height center">
+                <form class="col s12" method="POST">
+                    <div class="input-field">
+                        <i class="material-icons prefix grey-text">mode_edit</i>
+                        <textarea id="textarea" class="materialize-textarea white-text" name="model_input"></textarea>
+                        <label for="textarea">Enter Text...</label>
+                    </div>
+
+                    <div class="input-field">
+                        <select id="model_type" name="model_type">
+                            <option value="" disabled selected>Chose Model...</option>
+                            <option value="1">BiLSTM</option>
+                            <option value="2">Logistic Regression</option>
+                            <option value="3">Naive Bayes</option>
+                            <option value="4">Random Forest</option>
+                        </select>
+                        <label class="emotion-text">Model Selection</label>
+                    </div>
+
+                    <button class="btn waves-effect waves-light blue modal-trigger" data-target="infoModal"
+                        style="margin-bottom: 15px;">Send Text
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
+                <br>
+
+                <div class="results center">
+                    {% if result %}
+                    <div class="row">
+                        <div class="col s6 offset-s3 center-align">
+                            {% for item in result %}
+                            <div class="progress-container">
+                                <span class="emotion-text">{{ item.emotion }} - {{ item.confidence }}%</span>
+                                <div class="progress-bar">
+                                    <div class="progress-bar-fill" style="width: {{ item.confidence }}%;"></div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Import jQuery and MaterializeJS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+
+</html>
